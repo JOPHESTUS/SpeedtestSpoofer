@@ -1,4 +1,4 @@
 SpeedtestSpoofer
 ================
 
-yer... "Codes for monies" lelnoty
+yer... "Monies for Codies" lelnoty
