@@ -1,10 +1,39 @@
 <?php
-$dow = $_POST["down"]; //Mbps . Decimal
-$u = $_POST["up"] ; //Mbps . Decimal
+if (isset($_POST["down"])){
+$dow = $_POST["down"]; 
+$down = $dow . '0';
+if ($down > 999000){
+$down = 999000;
+$round = true;
+}
+} else {
+$down = 5000;
+}
+
+if (isset($_POST["up"])){
+$u = $_POST["up"];
+$up = $u . '0';
+if ($up > 999000){
+$up = 999000;
+$round = true;
+}
+} else {
+$up = 5000;
+}
+if (isset($_POST["ping"])){
 $ping = $_POST["ping"];
-$up = $u . '000';
-$down = $dow . '000';
+}  else {
+$ping = 3;
+}
+if (isset($_POST["server"])){
 $server = $_POST["server"];
+} else {
+$server = 2223;
+}
+
+
+
+
 $accuracy = 8;
 $hash = md5("$ping-$up-$down-297aae72");
 $headers = Array(
@@ -34,4 +63,7 @@ $headers = Array(
             print 'http://www.speedtest.net/my-result/'.urldecode($param[1]).' Speed test succesful.';
         }
     }
+	if ($round == true){
+	echo("<br>A value you entered was higher than the permitted amount so it was rounded down to 999.00mbps");
+	}
 ?>
