@@ -30,8 +30,7 @@ $server = $_POST["server"];
 } else {
 $server = 2223;
 }
-
-
+$ip = $_SERVER['REMOTE_ADDR'];
 
 
 $accuracy = 8;
@@ -44,7 +43,8 @@ $headers = Array(
         'Origin: http://c.speedtest.net',
         'Referer: http://c.speedtest.net/flash/speedtest.swf',
         'Cookie: PLACE YOUR COOKIE HERE', // change this for history tests
-        'Connection: Close'
+        'Connection: Close',
+		'X-Forwarded-For: ' .$ip,
     );
     $post = "startmode=recommendedselect&promo=&upload=$up&accuracy=$accuracy&recommendedserverid=$server&serverid=$server&ping=$ping&hash=$hash&download=$down";
     //$post = urlencode($post);
@@ -60,7 +60,7 @@ $headers = Array(
     foreach (explode('&', $data) as $chunk) {
         $param = explode("=", $chunk);
         if (urldecode($param[0])== "resultid"){
-            print 'http://www.speedtest.net/my-result/'.urldecode($param[1]).' Speed test succesful.';
+            print ' Speed test succesful - <a href="http://www.speedtest.net/my-result/'.urldecode($param[1]).'">Link</a>';
         }
     }
 	if ($round == true){
